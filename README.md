@@ -9,7 +9,7 @@ An example of a .env file is:
 ```
 USER=FontouraAbreu
 DRIVEFILE="1VHDXe31RQP_ew_tmJlFQ3"
-BKPDIRS=(/home/FontouraAbreu/.ssh/ /home/${USER}/backupDir/)
+BKPDIRS=(/home/${USER}/.ssh/ /home/${USER}/backupDir/)
 GDRIVEPATH=(/home/FontouraAbreu/Desktop/./gdrive)
 BKPPATH=(/var/backups/)
 
