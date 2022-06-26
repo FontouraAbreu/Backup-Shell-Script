@@ -11,7 +11,7 @@ You can check how to install it at https://github.com/prasmussen/gdrive
 ## .env file
 You should fill a .env file - *located at the same directory as the backup script*.
 
-An example of a .env file is:
+An example of a .env file is (all variables are required for the script to work):
 
 ```
 USER=FontouraAbreu
