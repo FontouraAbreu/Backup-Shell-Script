@@ -1,5 +1,5 @@
 #!/bin/bash
-source .env
+source /bin/,backup/.env
 
 #data para nomear arquivo.tar.gz
 DATE=`date "+%d-%m-%Y-%H:%M"`
@@ -8,7 +8,7 @@ DATE=`date "+%d-%m-%Y-%H:%M"`
 echo "backing up these dirs: ${BKPDIRS[@]}"
 
 #Número de arquivos no Drive
-NBKPSDRIVE=`${GDRIVEPATH} sync content --order createdTime ${DRIVEFILE} | wc -l`
+NBKPSDRIVE=`gdrive sync content --order createdTime ${DRIVEFILE} | wc -l`
 echo "Number of files on Drive dir: ${NBKPSDRIVE}"
 
 #Se a quantidade de arquivos salvos no Drive for maior que 5
@@ -19,7 +19,7 @@ then
 	LINE=$((NBKPSDRIVE - 4))
 
 	#Encontra o arquivo.tar.gz mais antigo no Drive
-	OLDESTBKPDRIVE=`${GDRIVEPATH} sync content --order createdTime ${DRIVEFILE} | sed "${LINE}q;d" | awk '{print $1}'`
+	OLDESTBKPDRIVE=`gdrive sync content --order createdTime ${DRIVEFILE} | sed "${LINE}q;d" | awk '{print $1}'`
 
 	NBKPSPC=`ls ${BKPPATH} | wc -l`
 	echo "Number of backups on local: ${NBKPSPC}"
@@ -31,14 +31,15 @@ then
 		rm ${BKPPATH}"$(ls -t /var/backups/daily | tail -1)"
 	fi
 	#remove o arquivo mais antigo do Drive
-	${GDRIVEPATH} delete ${OLDESTBKPDRIVE}
+	gdrive delete ${OLDESTBKPDRIVE}
 	echo "Removing ${OLDESTBKPDRIVE} from drive"
 fi
 
 sleep 1
 #faz o backup dos diretórios escolhidos
-tar -czf ${BKPPATH}${DATE}.tar.gz ${BKPDIRS[@]}
-
+if [ tar -czf ${BKPPATH}${DATE}.tar.gz ${BKPDIRS[@]} -eq 2] then
+	exit 1
+fi
 #envia o backup feito para o Drive
-${GDRIVEPATH} sync upload ${BKPPATH} ${DRIVEFILE}
+gdrive sync upload ${BKPPATH} ${DRIVEFILE}
 
