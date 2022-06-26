@@ -37,9 +37,7 @@ fi
 
 sleep 1
 #faz o backup dos diretórios escolhidos
-if [ tar -czf ${BKPPATH}${DATE}.tar.gz ${BKPDIRS[@]} -eq 2] then
-	exit 1
-fi
+tar -czf ${BKPPATH}${DATE}.tar.gz ${BKPDIRS[@]}
 #envia o backup feito para o Drive
 gdrive sync upload ${BKPPATH} ${DRIVEFILE}
 
