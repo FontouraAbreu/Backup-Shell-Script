@@ -3,7 +3,9 @@ A Shell-Script for Backing up your selected files into a chosen Drive directory
 
 ## gdrive required
 gdrive is a command line utility for interacting with Google Drive.
-It should be placed at /usr/bin/
+
+It should be placed at /usr/bin/.
+
 You can check how to install it at https://github.com/prasmussen/gdrive
 
 ## .env file
